@@ -1,0 +1,200 @@
+======================================================================
+LAYER 3 VALIDATION: Prime-Quantum Correspondence
+Simulator: Qiskit Aer (local CPU)
+======================================================================
+
+Found 21 primes ≡ 1 mod 12 up to 500:
+[13, 37, 61, 73, 97, 109, 157, 181, 193, 229, 241, 277, 313, 337, 349, 373, 397, 409, 421, 433, 457]
+
+  p=  13  theta=  67.38 deg  phi= 106.10 deg  P(|0>)=0.6923  P(|1>)=0.3077  Bloch=(-0.256, 0.887, 0.385)
+
+  p=  37  theta=  18.92 deg  phi=  94.72 deg  P(|0>)=0.9730  P(|1>)=0.0270  Bloch=(-0.027, 0.323, 0.946)
+
+  p=  61  theta=  79.61 deg  phi=  93.67 deg  P(|0>)=0.5902  P(|1>)=0.4098  Bloch=(-0.063, 0.982, 0.180)
+
+  p=  73  theta=  41.11 deg  phi= 114.18 deg  P(|0>)=0.8767  P(|1>)=0.1233  Bloch=(-0.269, 0.600, 0.753)
+
+  p=  97  theta=  47.92 deg  phi= 104.70 deg  P(|0>)=0.8351  P(|1>)=0.1649  Bloch=(-0.188, 0.718, 0.670)
+
+  p= 109  theta=  33.40 deg  phi=  95.50 deg  P(|0>)=0.9174  P(|1>)=0.0826  Bloch=(-0.053, 0.548, 0.835)
+
+  p= 157  theta=  57.22 deg  phi= 116.04 deg  P(|0>)=0.7707  P(|1>)=0.2293  Bloch=(-0.369, 0.755, 0.541)
+
+  p= 181  theta=  83.97 deg  phi= 105.08 deg  P(|0>)=0.5525  P(|1>)=0.4475  Bloch=(-0.259, 0.960, 0.105)
+
+  p= 193  theta=  60.51 deg  phi=  94.13 deg  P(|0>)=0.7461  P(|1>)=0.2539  Bloch=(-0.063, 0.868, 0.492)
+
+  p= 229  theta=  15.19 deg  phi= 103.37 deg  P(|0>)=0.9825  P(|1>)=0.0175  Bloch=(-0.061, 0.255, 0.965)
+
+  p= 241  theta=  29.86 deg  phi= 116.80 deg  P(|0>)=0.9336  P(|1>)=0.0664  Bloch=(-0.225, 0.444, 0.867)
+
+  p= 277  theta=  65.47 deg  phi=  98.64 deg  P(|0>)=0.7076  P(|1>)=0.2924  Bloch=(-0.137, 0.899, 0.415)
+
+  p= 313  theta=  85.42 deg  phi= 111.56 deg  P(|0>)=0.5399  P(|1>)=0.4601  Bloch=(-0.366, 0.927, 0.080)
+
+  p= 337  theta=  58.72 deg  phi=  97.83 deg  P(|0>)=0.7596  P(|1>)=0.2404  Bloch=(-0.116, 0.847, 0.519)
+
+  p= 349  theta=  31.05 deg  phi= 112.01 deg  P(|0>)=0.9284  P(|1>)=0.0716  Bloch=(-0.193, 0.478, 0.857)
+
+  p= 373  theta=  42.50 deg  phi= 109.67 deg  P(|0>)=0.8686  P(|1>)=0.1314  Bloch=(-0.227, 0.636, 0.737)
+
+  p= 397  theta=  35.05 deg  phi=  91.44 deg  P(|0>)=0.9093  P(|1>)=0.0907  Bloch=(-0.014, 0.574, 0.819)
+
+  p= 409  theta=  17.06 deg  phi=  99.97 deg  P(|0>)=0.9780  P(|1>)=0.0220  Bloch=(-0.051, 0.289, 0.956)
+
+  p= 421  theta=  86.05 deg  phi= 117.58 deg  P(|0>)=0.5344  P(|1>)=0.4656  Bloch=(-0.462, 0.884, 0.069)
+
+  p= 433  theta=  70.44 deg  phi=  92.75 deg  P(|0>)=0.6674  P(|1>)=0.3326  Bloch=(-0.045, 0.941, 0.335)
+
+  p= 457  theta=  21.57 deg  phi= 103.53 deg  P(|0>)=0.9650  P(|1>)=0.0350  Bloch=(-0.086, 0.357, 0.930)
+
+======================================================================
+TEST 1: Measurement Statistics (10000 shots per prime)
+======================================================================
+  p=  13  predicted=(0.6923, 0.3077)  empirical=(0.6936, 0.3064)  error=0.0013  [PASS]
+  p=  37  predicted=(0.9730, 0.0270)  empirical=(0.9747, 0.0253)  error=0.0017  [PASS]
+  p=  61  predicted=(0.5902, 0.4098)  empirical=(0.5876, 0.4124)  error=0.0026  [PASS]
+  p=  73  predicted=(0.8767, 0.1233)  empirical=(0.8765, 0.1235)  error=0.0002  [PASS]
+  p=  97  predicted=(0.8351, 0.1649)  empirical=(0.8377, 0.1623)  error=0.0026  [PASS]
+  p= 109  predicted=(0.9174, 0.0826)  empirical=(0.9202, 0.0798)  error=0.0028  [PASS]
+  p= 157  predicted=(0.7707, 0.2293)  empirical=(0.7657, 0.2343)  error=0.0050  [PASS]
+  p= 181  predicted=(0.5525, 0.4475)  empirical=(0.5582, 0.4418)  error=0.0057  [PASS]
+  p= 193  predicted=(0.7461, 0.2539)  empirical=(0.7509, 0.2491)  error=0.0048  [PASS]
+  p= 229  predicted=(0.9825, 0.0175)  empirical=(0.9830, 0.0170)  error=0.0005  [PASS]
+
+  Result: 10/10 passed
+
+======================================================================
+TEST 2: Exact State Vector Verification
+======================================================================
+  p=  13  sim=(0.69230769, 0.30769231)  expected=(0.69230769, 0.30769231)  error=0.00e+00  [PASS]
+  p=  37  sim=(0.97297297, 0.02702703)  expected=(0.97297297, 0.02702703)  error=2.22e-16  [PASS]
+  p=  61  sim=(0.59016393, 0.40983607)  expected=(0.59016393, 0.40983607)  error=0.00e+00  [PASS]
+  p=  73  sim=(0.87671233, 0.12328767)  expected=(0.87671233, 0.12328767)  error=0.00e+00  [PASS]
+  p=  97  sim=(0.83505155, 0.16494845)  expected=(0.83505155, 0.16494845)  error=0.00e+00  [PASS]
+  p= 109  sim=(0.91743119, 0.08256881)  expected=(0.91743119, 0.08256881)  error=2.22e-16  [PASS]
+  p= 157  sim=(0.77070064, 0.22929936)  expected=(0.77070064, 0.22929936)  error=0.00e+00  [PASS]
+  p= 181  sim=(0.55248619, 0.44751381)  expected=(0.55248619, 0.44751381)  error=0.00e+00  [PASS]
+  p= 193  sim=(0.74611399, 0.25388601)  expected=(0.74611399, 0.25388601)  error=0.00e+00  [PASS]
+  p= 229  sim=(0.98253275, 0.01746725)  expected=(0.98253275, 0.01746725)  error=2.22e-16  [PASS]
+  p= 241  sim=(0.93360996, 0.06639004)  expected=(0.93360996, 0.06639004)  error=2.22e-16  [PASS]
+  p= 277  sim=(0.70758123, 0.29241877)  expected=(0.70758123, 0.29241877)  error=1.11e-16  [PASS]
+  p= 313  sim=(0.53993610, 0.46006390)  expected=(0.53993610, 0.46006390)  error=0.00e+00  [PASS]
+  p= 337  sim=(0.75964392, 0.24035608)  expected=(0.75964392, 0.24035608)  error=1.11e-16  [PASS]
+  p= 349  sim=(0.92836676, 0.07163324)  expected=(0.92836676, 0.07163324)  error=0.00e+00  [PASS]
+  p= 373  sim=(0.86863271, 0.13136729)  expected=(0.86863271, 0.13136729)  error=2.22e-16  [PASS]
+  p= 397  sim=(0.90931990, 0.09068010)  expected=(0.90931990, 0.09068010)  error=2.22e-16  [PASS]
+  p= 409  sim=(0.97799511, 0.02200489)  expected=(0.97799511, 0.02200489)  error=2.22e-16  [PASS]
+  p= 421  sim=(0.53444181, 0.46555819)  expected=(0.53444181, 0.46555819)  error=0.00e+00  [PASS]
+  p= 433  sim=(0.66743649, 0.33256351)  expected=(0.66743649, 0.33256351)  error=2.22e-16  [PASS]
+  p= 457  sim=(0.96498906, 0.03501094)  expected=(0.96498906, 0.03501094)  error=1.39e-17  [PASS]
+
+  Result: 21/21 passed
+
+======================================================================
+TEST 3: Gate Response (X, Z, H gates)
+======================================================================
+
+  p=13  [PASS]
+    x_gate: flipped to (0.3076, 0.6924)  [ok]
+    z_gate: unchanged  (0.6988, 0.3012)  [ok]
+    h_gate: P(|0>)=0.3731  expected=0.3720  [ok]
+           ^ This confirms Eisenstein phase phi is measurable!
+
+  p=37  [PASS]
+    x_gate: flipped to (0.0256, 0.9744)  [ok]
+    z_gate: unchanged  (0.9754, 0.0246)  [ok]
+    h_gate: P(|0>)=0.4890  expected=0.4867  [ok]
+           ^ This confirms Eisenstein phase phi is measurable!
+
+  p=61  [PASS]
+    x_gate: flipped to (0.4172, 0.5828)  [ok]
+    z_gate: unchanged  (0.5844, 0.4156)  [ok]
+    h_gate: P(|0>)=0.4553  expected=0.4685  [ok]
+           ^ This confirms Eisenstein phase phi is measurable!
+
+  p=73  [PASS]
+    x_gate: flipped to (0.1222, 0.8778)  [ok]
+    z_gate: unchanged  (0.8806, 0.1194)  [ok]
+    h_gate: P(|0>)=0.3658  expected=0.3653  [ok]
+           ^ This confirms Eisenstein phase phi is measurable!
+
+  p=97  [PASS]
+    x_gate: flipped to (0.1556, 0.8444)  [ok]
+    z_gate: unchanged  (0.8312, 0.1688)  [ok]
+    h_gate: P(|0>)=0.4086  expected=0.4058  [ok]
+           ^ This confirms Eisenstein phase phi is measurable!
+
+  Result: 5/5 passed
+
+======================================================================
+TEST 4: Cross-Prime Distinctness
+======================================================================
+  21 primes, 210 pairwise comparisons
+  Min distance: 0.0366 (closest pair: (229, 409))
+  Avg distance: 0.5109 (random sphere avg ~ 1.333)
+
+======================================================================
+TEST 5: Angular Distribution Analysis
+======================================================================
+  theta range: [15.2 deg, 86.1 deg]  mean=49.9 deg  std=23.2 deg
+  phi range: [91.4 deg, 117.6 deg]  mean=103.8 deg  std=8.4 deg
+
+  All prime -> angle mappings:
+    p=  13  theta=  67.38 deg  phi= 106.10 deg
+    p=  37  theta=  18.92 deg  phi=  94.72 deg
+    p=  61  theta=  79.61 deg  phi=  93.67 deg
+    p=  73  theta=  41.11 deg  phi= 114.18 deg
+    p=  97  theta=  47.92 deg  phi= 104.70 deg
+    p= 109  theta=  33.40 deg  phi=  95.50 deg
+    p= 157  theta=  57.22 deg  phi= 116.04 deg
+    p= 181  theta=  83.97 deg  phi= 105.08 deg
+    p= 193  theta=  60.51 deg  phi=  94.13 deg
+    p= 229  theta=  15.19 deg  phi= 103.37 deg
+    p= 241  theta=  29.86 deg  phi= 116.80 deg
+    p= 277  theta=  65.47 deg  phi=  98.64 deg
+    p= 313  theta=  85.42 deg  phi= 111.56 deg
+    p= 337  theta=  58.72 deg  phi=  97.83 deg
+    p= 349  theta=  31.05 deg  phi= 112.01 deg
+    p= 373  theta=  42.50 deg  phi= 109.67 deg
+    p= 397  theta=  35.05 deg  phi=  91.44 deg
+    p= 409  theta=  17.06 deg  phi=  99.97 deg
+    p= 421  theta=  86.05 deg  phi= 117.58 deg
+    p= 433  theta=  70.44 deg  phi=  92.75 deg
+    p= 457  theta=  21.57 deg  phi= 103.53 deg
+
+======================================================================
+SUMMARY
+======================================================================
+
+Results:
+  Test 1 (Measurement Statistics):  10/10 passed
+  Test 2 (State Vector Exact):      21/21 passed
+  Test 3 (Gate Response X/Z/H):     5/5 passed
+  Test 4 (Cross-Prime Distinctness): min_dist=0.0366, avg_dist=0.5109
+  Test 5 (Angular Distribution):    theta_std=23.2 deg, phi_std=8.4 deg
+
+What we validated:
+  1. Prime-derived (theta, phi) pairs produce valid qubit states in Qiskit Aer
+  2. Measurement statistics match predicted cos^2(theta/2) and sin^2(theta/2)
+  3. Gates transform states correctly:
+     - X gate swaps amplitudes (as expected)
+     - Z gate preserves Z-basis probs (phase-only, as expected)
+     - H gate reveals the Eisenstein-derived phase phi in measurement
+       (KEY RESULT: phi is not just decorative, it's measurable)
+  4. Different primes produce distinct qubit states (not degenerate)
+  5. Angular distribution shows the structural characteristics above
+
+What this means:
+  - The dual-factorization -> qubit mapping is mathematically self-consistent
+  - It produces valid, non-trivial quantum states
+  - Both the Gaussian (amplitude) and Eisenstein (phase) components are
+    independently meaningful and measurable
+
+What this does NOT prove:
+  - That nature "uses" this correspondence
+  - That there's a deeper physical connection beyond the mathematical encoding
+  - Dunleavy's broader claims about quantum mechanics need separate validation
+
+The encoding works. Whether it's profound or just pretty is still an open question.
+
