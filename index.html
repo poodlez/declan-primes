@@ -259,8 +259,7 @@ footer a:hover{color:var(--text)}
     </p>
   </div>
 
-  <button class="expand-btn" id="norm-toggle">▸ Show Norm Heatmaps</button>
-  <div id="norm-content" style="display:none;margin-top:20px">
+  <div id="norm-content" style="margin-top:4px">
     <div class="heatmap-pair">
       <div class="heatmap-col">
         <div class="heatmap-label" style="color:var(--blue)">Gaussian · a² + b²</div>
@@ -318,8 +317,7 @@ footer a:hover{color:var(--text)}
     Only active for p ≡ 1 mod 12 primes (gold ones) since they split in both systems.
   </p>
 
-  <button class="expand-btn" id="bloch-toggle">▸ Show Bloch Sphere</button>
-  <div id="bloch-content" style="display:none;margin-top:20px">
+  <div id="bloch-content" style="margin-top:4px">
 
     <!-- Validation Results -->
     <div class="card" style="margin-bottom:20px;border-color:rgba(94,168,240,.15)">
@@ -699,11 +697,7 @@ $('#prime-input').addEventListener('input',function(){
 });
 
 // Expand toggles
-$('#norm-toggle').addEventListener('click',function(){
-  const c=$('#norm-content');
-  if(c.style.display==='none'){c.style.display='block';this.textContent='▾ Hide Norm Heatmaps';drawHeatmaps();}
-  else{c.style.display='none';this.textContent='▸ Show Norm Heatmaps';}
-});
+// Norm heatmaps always visible — draw on boot
 $('#validation-detail-toggle').addEventListener('click',function(){
   const c=$('#validation-detail');
   if(c.style.display==='none'){c.style.display='block';this.textContent='▾ Hide per-prime measurement data';}
@@ -714,11 +708,7 @@ $('#deep-analysis-toggle').addEventListener('click',function(){
   if(c.style.display==='none'){c.style.display='block';this.textContent='▾ Hide equidistribution & independence data';}
   else{c.style.display='none';this.textContent='▸ Show equidistribution & independence data';}
 });
-$('#bloch-toggle').addEventListener('click',function(){
-  const c=$('#bloch-content');
-  if(c.style.display==='none'){c.style.display='block';this.textContent='▾ Hide Bloch Sphere';initBloch();updateBloch();}
-  else{c.style.display='none';this.textContent='▸ Show Bloch Sphere';}
-});
+// Bloch sphere always visible — init on boot
 
 // ===================================================================
 // COMPLEX PLANE (Layer 1)
@@ -1023,14 +1013,17 @@ function update(){
 
   drawPlane();
 
-  if($('#norm-content').style.display!=='none')drawHeatmaps();
-  if($('#bloch-content').style.display!=='none')updateBloch();
+  drawHeatmaps();
+  if(blochInited)updateBloch();
 }
 
 // ===================================================================
 // BOOT
 // ===================================================================
 update();
+drawHeatmaps();
+initBloch();
+updateBloch();
 </script>
 </body>
 </html>
