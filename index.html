@@ -439,7 +439,7 @@ footer a:hover{color:var(--text)}
             sphere's longitude range.
           </p>
           <div style="font:300 10px/1.4 var(--font-mono);color:var(--faint);margin-top:8px">
-            Confirmed: 1,264 primes ≤ 50,000 → φ ∈ [90.1°, 119.8°]
+            Confirmed: 1,264 primes ≤ 50,000 → φ ∈ [0°, 30°] (primary factor convention)
           </div>
         </div>
       </div>
@@ -619,8 +619,21 @@ function factorEisenstein(p){
   if(p===3)return{a:1,b:1,type:'ramified'};
   if(p%3===2)return{a:p,b:0,type:'inert'};
   if(p%3===1){
-    for(let a=0;a<=p;a++)for(let b=1;b<=p;b++)
-      if(a*a-a*b+b*b===p)return{a,b,type:'split'};
+    // Find all solutions, pick primary factor (closest to positive real axis)
+    const solutions=[];
+    const lim=Math.ceil(Math.sqrt(4*p/3))+1;
+    for(let a=0;a<=p;a++)for(let b=1;b<=lim;b++)
+      if(a*a-a*b+b*b===p)solutions.push([a,b]);
+    if(solutions.length===0)return null;
+    // Primary = smallest positive angle arg(a+bω)
+    let best=null,bestAngle=Infinity;
+    for(const[a,b]of solutions){
+      const re=a+b*OMEGA_RE, im=b*OMEGA_IM;
+      let angle=Math.atan2(im,re);
+      if(angle<0)angle+=2*Math.PI;
+      if(angle<bestAngle){bestAngle=angle;best={a,b,type:'split'};}
+    }
+    return best;
   }
   return null;
 }
@@ -752,19 +765,59 @@ function drawPlane(){
     ctx.font='bold 13px "DM Mono",monospace';ctx.textAlign='center';ctx.fillText(label,x,y-14);
   }
 
+  // Helper: draw a small associate dot
+  function assocDot(re,im,col){
+    const x=tX(re),y=tY(im);
+    ctx.fillStyle=col;ctx.beginPath();ctx.arc(x,y,3,0,Math.PI*2);ctx.fill();
+  }
+
   if(gF&&gF.type==='split'&&(activeView==='gaussian'||activeView==='both')){
     const{a,b}=gF;
+    // Primary pair
     dot(a,b,'rgb(94,168,240)',`${a}+${b}i`);dot(a,-b,'rgb(94,168,240)',`${a}−${b}i`);
     ctx.strokeStyle='rgba(94,168,240,.4)';ctx.lineWidth=1;ctx.setLineDash([3,3]);
     ctx.beginPath();ctx.moveTo(tX(a),tY(b));ctx.lineTo(tX(a),tY(-b));ctx.stroke();ctx.setLineDash([]);
+    // Gaussian associates: multiply (a+bi) by units {i, -1, -i} (×1 already shown)
+    // ×i: -b+ai, ×(-1): -a-bi, ×(-i): b-ai  (and conjugates)
+    const gAssoc=[[-b,a],[- a,-b],[b,-a],[-b,-a],[-a,b],[b,a]];
+    ctx.strokeStyle='rgba(94,168,240,.15)';ctx.lineWidth=.5;ctx.setLineDash([]);
+    for(const[re,im] of gAssoc) assocDot(re,im,'rgba(94,168,240,.35)');
+    // Connect all 8 points
+    const gAll=[[a,b],[- b,a],[-a,-b],[b,-a],[a,-b],[-b,-a],[-a,b],[b,a]];
+    ctx.beginPath();
+    for(let j=0;j<4;j++){ctx.moveTo(tX(gAll[j][0]),tY(gAll[j][1]));ctx.lineTo(tX(gAll[j+4][0]),tY(gAll[j+4][1]));}
+    ctx.stroke();
   }
   if(eF&&eF.type==='split'&&(activeView==='eisenstein'||activeView==='both')){
     const{a,b}=eF;
-    const r1=a+b*OMEGA_RE,i1=b*OMEGA_IM;
-    const r2=a+b*(-0.5-OMEGA_RE),i2=b*(-OMEGA_IM);
+    // Primary: a+bω  Conjugate: a+bω² (same real part, negated imaginary)
+    const r1=a+b*OMEGA_RE, i1=b*OMEGA_IM;
+    const r2=r1, i2=-i1;  // conjugate is vertically stacked
     dot(r1,i1,'rgb(240,96,144)',`${a}+${b}ω`);dot(r2,i2,'rgb(240,96,144)',`${a}+${b}ω²`);
     ctx.strokeStyle='rgba(240,96,144,.4)';ctx.lineWidth=1;ctx.setLineDash([3,3]);
     ctx.beginPath();ctx.moveTo(tX(r1),tY(i1));ctx.lineTo(tX(r2),tY(i2));ctx.stroke();ctx.setLineDash([]);
+    // Eisenstein associates: multiply by units {ω, ω², -1, -ω, -ω²}
+    // Complex values of units: ω=(-0.5,√3/2), ω²=(-0.5,-√3/2), -1=(-1,0), -ω=(0.5,-√3/2), -ω²=(0.5,√3/2)
+    const units=[[1,0],[-0.5,OMEGA_IM],[-0.5,-OMEGA_IM],[-1,0],[0.5,-OMEGA_IM],[0.5,OMEGA_IM]];
+    const eAssocPrimary=[], eAssocConj=[];
+    for(const[ur,ui] of units){
+      eAssocPrimary.push([r1*ur-i1*ui, r1*ui+i1*ur]);
+      eAssocConj.push([r2*ur-i2*ui, r2*ui+i2*ur]);
+    }
+    ctx.strokeStyle='rgba(240,96,144,.15)';ctx.lineWidth=.5;ctx.setLineDash([]);
+    // Draw associate dots (skip index 0, already drawn as primary)
+    for(let j=1;j<6;j++){
+      assocDot(eAssocPrimary[j][0],eAssocPrimary[j][1],'rgba(240,96,144,.35)');
+      assocDot(eAssocConj[j][0],eAssocConj[j][1],'rgba(240,96,144,.35)');
+    }
+    // Connect primary associates in a hexagon
+    ctx.strokeStyle='rgba(240,96,144,.18)';ctx.lineWidth=.5;
+    ctx.beginPath();ctx.moveTo(tX(eAssocPrimary[0][0]),tY(eAssocPrimary[0][1]));
+    for(let j=1;j<6;j++)ctx.lineTo(tX(eAssocPrimary[j][0]),tY(eAssocPrimary[j][1]));
+    ctx.closePath();ctx.stroke();
+    ctx.beginPath();ctx.moveTo(tX(eAssocConj[0][0]),tY(eAssocConj[0][1]));
+    for(let j=1;j<6;j++)ctx.lineTo(tX(eAssocConj[j][0]),tY(eAssocConj[j][1]));
+    ctx.closePath();ctx.stroke();
   }
   // origin
   ctx.fillStyle='rgba(255,255,255,.6)';ctx.beginPath();ctx.arc(cx,cy,3,0,Math.PI*2);ctx.fill();
@@ -980,11 +1033,11 @@ function update(){
   badge.style.color=CLASS_COLOR[cls];
 
   // factor cards
-  function renderCard(el,factor,title,color,sym,normFn){
+  function renderCard(el,factor,title,color,exprFn,normFn){
     if(!factor){el.innerHTML='';return;}
     let inner=`<div class="title" style="color:${color}">${title}</div>`;
     if(factor.type==='split'){
-      inner+=`<div class="expr">(${factor.a}+${factor.b}${sym})(${factor.a}−${factor.b}${sym})</div>`;
+      inner+=`<div class="expr">${exprFn(factor.a,factor.b)}</div>`;
       inner+=`<div class="norm">norm: ${normFn(factor.a,factor.b)}</div>`;
     }else if(factor.type==='inert'){
       inner+=`<div class="inert">Remains prime (inert)</div>`;
@@ -993,9 +1046,11 @@ function update(){
     }
     el.innerHTML=inner;
   }
-  renderCard($('#gauss-card'),gF,'Gaussian Z[i]','var(--blue)','i',
+  renderCard($('#gauss-card'),gF,'Gaussian Z[i]','var(--blue)',
+    (a,b)=>`(${a}+${b}i)(${a}−${b}i)`,
     (a,b)=>`${a}² + ${b}² = ${a*a} + ${b*b} = ${a*a+b*b}`);
-  renderCard($('#eisen-card'),eF,'Eisenstein Z[ω]','var(--pink)','ω',
+  renderCard($('#eisen-card'),eF,'Eisenstein Z[ω]','var(--pink)',
+    (a,b)=>`(${a}+${b}ω)(${a}+${b}ω²)`,
     (a,b)=>`${a}² − ${a}·${b} + ${b}² = ${a*a} − ${a*b} + ${b*b} = ${a*a-a*b+b*b}`);
 
   // highlight active buttons

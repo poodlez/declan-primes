@@ -45,16 +45,34 @@ def factor_gaussian(p):
 
 
 def factor_eisenstein(p):
-    """Factor prime p in Z[ω]. Returns (a, b, type) where p = (a+bω)(a+bω²)."""
+    """Factor prime p in Z[ω]. Returns (a, b, type) where p = (a+bω)(a+bω²).
+    Uses primary factor convention: picks factor closest to positive real axis."""
     if p == 3:
         return (1, 1, 'ramified')
     if p % 3 == 2:
         return (p, 0, 'inert')
     if p % 3 == 1:
+        solutions = []
+        lim = int(math.isqrt(p)) + 2
         for a in range(0, p + 1):
-            for b in range(1, p + 1):
+            for b in range(1, lim):
                 if a * a - a * b + b * b == p:
-                    return (a, b, 'split')
+                    solutions.append((a, b))
+        if not solutions:
+            return None
+        # Pick the solution whose complex representation has smallest positive angle
+        best = None
+        best_angle = float('inf')
+        for a, b in solutions:
+            e_re = a + b * OMEGA_RE
+            e_im = b * OMEGA_IM
+            angle = math.atan2(e_im, e_re)
+            if angle < 0:
+                angle += 2 * math.pi
+            if angle < best_angle:
+                best_angle = angle
+                best = (a, b, 'split')
+        return best
     return None
 
 
